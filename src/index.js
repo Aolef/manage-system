@@ -9,7 +9,7 @@ import routes from './pages/route/routes';
 import { saveMenus } from './pages/store/reducers/menuSlice';
 
 const root =  ReactDOM.createRoot(document.getElementById("app"))
-// 
+// 获取菜单
 const menuRoutes = [
     {
         path: '/usermanage',
@@ -27,6 +27,7 @@ const menuRoutes = [
 ]
 
 store.dispatch(saveMenus(menuRoutes))
+// 构建路由
 const getRoutes = (param) => {
     return param.map(item => {
         let Component = routes[item.code]
@@ -46,13 +47,14 @@ const getRoutes = (param) => {
         }
     })
 }
+// 根组件渲染
 const renderFun = () => {
     root.render(
         <Provider store={store}>
             <HashRouter>
                 <Routes>
+                    <Route path="/login" key={'login'} element={<Login/>}></Route>
                     <Route path="/" element={<App/>}>
-                        <Route path="/login" key={'login'} element={<Login/>}></Route>
                         {
                             getRoutes(menuRoutes)
                         }
